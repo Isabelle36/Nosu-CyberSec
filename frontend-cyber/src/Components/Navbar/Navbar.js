@@ -26,12 +26,12 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto flex justify-between items-center">
-          {/* Logo */}
+          
           <div className="text-white text-2xl font-bold cursor-pointer">
             CyberSec
           </div>
 
-          {/* Navigation Links */}
+         
           <ul className="hidden md:flex space-x-10 text-white text-lg">
             <li className="hover:opacity-80 cursor-pointer">
               <Link to="/">Home</Link>
@@ -44,7 +44,7 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Call to Action Button */}
+         
           <div className="hidden md:block">
             <Link to="/signup">
               <button className="px-4 py-2 font-medium bg-yellow-400 text-black rounded hover:opacity-80">
