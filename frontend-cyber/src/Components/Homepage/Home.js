@@ -5,10 +5,8 @@ export default function Home() {
   return (
     <>
         <div className="h-screen fulls bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] relative overflow-hidden">
-      {/* Blurred Circle */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400 to-blue-600 blur-3xl opacity-30 rounded-full"></div>
 
-      {/* Content */}
       <div className="relative flex flex-col items-center justify-center h-full text-center textTop">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg ">
           Welcome to CyberSec
