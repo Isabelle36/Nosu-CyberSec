@@ -1,10 +1,11 @@
 import React from 'react'
 import './Home.css'
+import QuizInHome from '../QuizInHome/QuizInHome'
 
 export default function Home() {
   return (
     <>
-        <div className="h-screen fulls bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] relative overflow-hidden">
+        <div className=" h-full fulls bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] relative overflow-auto">
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400 to-blue-600 blur-3xl opacity-30 rounded-full"></div>
 
       <div className="relative flex flex-col items-center justify-center h-full text-center textTop">
@@ -18,7 +19,11 @@ export default function Home() {
           Learn More
         </button>
       </div>
+      <QuizInHome/>
+
+
     </div>
+
     </>
   )
 }

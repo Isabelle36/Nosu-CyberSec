@@ -4,6 +4,7 @@ import Login from "./Components/LoginPage/Login";
 import SignUp from "./Components/LoginPage/SignUp";
 import Navbar from "./Components/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+// import { QuizPage } from "./Components/QuizInHome/QuizInHome";
 
 function App() {
 
