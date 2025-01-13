@@ -9,6 +9,9 @@ module.exports = {
         'display': ['Oswald'],
         'body': ['Open Sans'],
       },
+      colors:{
+        neonGreen : '#39FF14',
+      },
     },
   },
   plugins: [],
