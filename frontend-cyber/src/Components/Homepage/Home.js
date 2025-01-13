@@ -17,7 +17,7 @@ export default function Home() {
         Become a cybersecurity pro with hands-on lessons, practical tips, and expert insights
         </p>
         <button className="mt-6 px-6 py-3  bg-cyan-500 hover:bg-cyan-600 text-black font-sans font-semibold antialiased rounded-lg shadow-md text-lg">
-          Start Learning
+          Learn More
         </button>
       </div>
     </div>
