@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -16,7 +16,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
+      const response = await fetch("http://localhost:8000/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -24,6 +24,7 @@ export default function SignUp() {
       const data = await response.json();
       if (response.ok) {
         alert("Sign-Up successful!");
+        window.location.href = "/";
       } else {
         alert(data.message || "Sign-Up failed!");
       }
@@ -43,8 +44,8 @@ export default function SignUp() {
           <label className="block mb-1 text-sm font-medium text-gray-700">Name:</label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="username"
+            value={formData.username}
             onChange={handleInputChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
