@@ -1,3 +1,4 @@
 node_modules
 echo ".DS_Store" >> ~/.gitignore
 git config --global core.excludesfile ~/.gitignore.DS_Store
+.DS_Store
