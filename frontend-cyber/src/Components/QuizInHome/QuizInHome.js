@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Quiz.css";
+import AOS from "aos"; 
+import "aos/dist/aos.css";
 
 export default function QuizInHome() {
   const navigate = useNavigate();
@@ -26,6 +28,16 @@ export default function QuizInHome() {
     },
   ];
 
+  useEffect(() => {
+    AOS.init({
+      duration: 700, 
+      offset: 100, 
+      easing: "ease-out", 
+      once: false, 
+      delay: 100, 
+    });
+  }, []);
+
   return (
     <div className="max-w-7xl mx-auto textTop">
       <h2 className="text-4xl font-extrabold text-white text-center mb-16 drop-shadow-lg">
@@ -36,6 +48,8 @@ export default function QuizInHome() {
         {quizCategories.map((quiz, index) => (
           <div
             key={index}
+            data-aos="zoom-in" 
+            data-aos-delay={`${index * 100}`} 
             className="bg-white/10 backdrop-blur-lg rounded-xl p-8 hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg"
           >
             <div className="flex flex-col h-full">
@@ -51,7 +65,7 @@ export default function QuizInHome() {
               </div>
               <button
                 className="mt-auto w-full bg-cyan-500 hover:bg-cyan-600 text-black font-semibold py-3 rounded-lg transition-colors duration-300"
-                onClick={() => navigate(`/quiz/${index + 1}`)} // Adjusting index to 1-based for URL
+                onClick={() => navigate(`/quiz/${index + 1}`)} 
               >
                 Start Quiz
               </button>
