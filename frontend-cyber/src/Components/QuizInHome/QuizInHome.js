@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Quiz.css'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Quiz.css";
 
 export default function QuizInHome() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function QuizInHome() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto textTop ">
+    <div className="max-w-7xl mx-auto textTop">
       <h2 className="text-4xl font-extrabold text-white text-center mb-16 drop-shadow-lg">
         Choose Your Challenge
       </h2>
@@ -51,7 +51,7 @@ export default function QuizInHome() {
               </div>
               <button
                 className="mt-auto w-full bg-cyan-500 hover:bg-cyan-600 text-black font-semibold py-3 rounded-lg transition-colors duration-300"
-                onClick={() => navigate(`/quiz/${index}`)}
+                onClick={() => navigate(`/quiz/${index + 1}`)} // Adjusting index to 1-based for URL
               >
                 Start Quiz
               </button>

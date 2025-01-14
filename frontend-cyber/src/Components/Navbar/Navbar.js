@@ -26,25 +26,22 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto flex justify-between items-center">
-          
           <div className="text-white text-2xl font-bold cursor-pointer">
             CyberSec
           </div>
 
-         
           <ul className="hidden md:flex space-x-10 text-white text-lg">
             <li className="hover:opacity-80 cursor-pointer">
               <Link to="/">Home</Link>
             </li>
             <li className="hover:opacity-80 cursor-pointer">
-              <Link to="/">About</Link>
+              <Link to="/about">About</Link>
             </li>
             <li className="hover:opacity-80 cursor-pointer">
               <Link to="/">Contact</Link>
             </li>
           </ul>
 
-         
           <div className="hidden md:block">
             <Link to="/signup">
               <button className="px-4 py-2 font-medium bg-yellow-400 text-black rounded hover:opacity-80">
