@@ -9,6 +9,8 @@ import Quiz1 from "./Components/Quizzes/Quiz1";
 import Quiz2 from "./Components/Quizzes/Quiz2";
 import Quiz3 from "./Components/Quizzes/Quiz3";
 import About from "./Components/About";
+import Lessons from "./Components/Lessons/Lessons";
+import CourseGeneration from "./Components/CourseGeneration/CourseGeneration";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route path="/quiz/2" element={<Quiz2 />} />
           <Route path="/quiz/3" element={<Quiz3 />} />
           <Route path="/about" element={<About />} />
+          <Route path="/courses" element={<CourseGeneration/>} />
         </Routes>
       </Router>
     </>
