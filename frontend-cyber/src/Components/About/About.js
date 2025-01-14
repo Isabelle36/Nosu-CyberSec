@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Footer from "../Footer/Footer";
 
 export default function About() {
   const [activeFAQ, setActiveFAQ] = useState(null);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
 
   const toggleFAQ = (index) => {
     setActiveFAQ(activeFAQ === index ? null : index);
@@ -28,12 +38,8 @@ export default function About() {
 
   return (
     <div className="h-full bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] relative overflow-hidden text-white">
-      {/* Gradient Background */}
-      <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-gradient-to-r from-cyan-400 to-blue-600 blur-3xl opacity-20 rounded-full"></div>
-      <div className="absolute top-3/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-cyan-600 to-blue-800 blur-2xl opacity-20 rounded-full"></div>
-
       {/* About Section */}
-      <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 h-screen">
+      <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 h-screen" data-aos="fade-up">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg mb-6 animate-fade-in">
           About Us
         </h1>
@@ -45,7 +51,7 @@ export default function About() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="relative bg-[#1b263b] py-24">
+      <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Why Choose Us?
         </h2>
@@ -77,7 +83,7 @@ export default function About() {
       </section>
 
       {/* Team Showcase Section */}
-      <section className="relative bg-gray-900 py-24">
+      <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Meet Our Team
         </h2>
@@ -101,7 +107,7 @@ export default function About() {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative bg-[#1b263b] py-24">
+      <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Frequently Asked Questions
         </h2>
@@ -129,7 +135,7 @@ export default function About() {
       </section>
 
       {/* Call-to-Action */}
-      <section className="relative bg-gradient-to-r from-cyan-500 to-blue-600 py-24">
+      <section className="relative py-24" data-aos="fade-up">
         <div className="text-center text-white">
           <h2 className="text-4xl font-bold mb-6">Ready to Join Us?</h2>
           <p className="text-lg max-w-2xl mx-auto mb-8">
@@ -145,17 +151,7 @@ export default function About() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-gray-400 py-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <p>© 2025 CyberSec. All rights reserved.</p>
-          <p>
-            Contact us:{" "}
-            <a href="mailto:support@cybersec.com" className="text-cyan-400">
-              support@cybersec.com
-            </a>
-          </p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
