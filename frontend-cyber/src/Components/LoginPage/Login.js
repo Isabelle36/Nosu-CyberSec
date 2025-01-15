@@ -29,7 +29,7 @@ export default function Login() {
       );
       const data = await response.json();
       if (response.ok) {
-        alert("Login successful!");
+        window.location.href = "/";
       } else {
         alert(data.message || "Login failed!");
       }

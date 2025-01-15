@@ -17,7 +17,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/auth/login`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/signup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
