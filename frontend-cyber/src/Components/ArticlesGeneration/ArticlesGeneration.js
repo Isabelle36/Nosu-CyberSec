@@ -3,17 +3,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const ArticlesGeneration = () => {
   const [githubResources, setGithubResources] = useState([]);
-  const [youtubeVideos, setYoutubeVideos] = useState([]);
   const [courses, setCourses] = useState([]);
   const [hasMoreRepos, setHasMoreRepos] = useState(true);
-  const [hasMoreVideos, setHasMoreVideos] = useState(true);
-  const [totalVideosFetched, setTotalVideosFetched] = useState(0);
-  const [activeSection, setActiveSection] = useState('github'); // State for active section
+  const [activeSection, setActiveSection] = useState('github');
 
   const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
-  const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
-  // Fetch GitHub resources
   const fetchGithubResources = useCallback(async (page = 1) => {
     try {
       const response = await fetch(
@@ -37,49 +32,9 @@ const ArticlesGeneration = () => {
     }
   }, [GITHUB_TOKEN]);
 
-  // Fetch YouTube videos
- // Fetch YouTube videos with improved logging and handling
- const fetchYoutubeVideos = useCallback(
-  async (pageToken = '') => {
-    if (totalVideosFetched >= 300) {
-      setHasMoreVideos(false); // Stop fetching
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=cybersecurity&type=video&maxResults=10&pageToken=${pageToken}&key=${YOUTUBE_API_KEY}`
-      );
-      const data = await response.json();
-
-      if (data.items && data.items.length > 0) {
-        // Add the new videos and update the total count
-        setYoutubeVideos((prev) => [...prev, ...data.items]);
-        setTotalVideosFetched((prev) => prev + data.items.length);
-
-        // Continue fetching if there's a nextPageToken and under 300 videos
-        if (data.nextPageToken && totalVideosFetched + data.items.length < 300) {
-          fetchYoutubeVideos(data.nextPageToken);
-        } else {
-          setHasMoreVideos(false);
-        }
-      } else {
-        setHasMoreVideos(false);
-      }
-    } catch (error) {
-      console.error('Error fetching YouTube videos:', error);
-      setHasMoreVideos(false);
-    }
-  },
-  [YOUTUBE_API_KEY, totalVideosFetched]
-);
-
-  
-
-  // Load initial data
   useEffect(() => {
+    console.clear();
     fetchGithubResources();
-    fetchYoutubeVideos();
 
     const initialCourses = [
       {
@@ -268,173 +223,138 @@ const ArticlesGeneration = () => {
         description: 'An introductory tutorial covering the fundamentals of cybersecurity and secure practices.',
       },
     ];
+
+
     setCourses(initialCourses);
-  }, [fetchGithubResources, fetchYoutubeVideos]);
+  }, [fetchGithubResources]);
 
-  return (
-    <div className="min-h-screen bg-gray-900 py-8">
-      <div className="container mx-auto px-4">
-        {/* Navbar */}
-        <nav className="sticky top-0 bg-gray-800 text-white py-4 shadow-md z-10">
-          <ul className="flex justify-center space-x-8">
-            <li>
-              <button
-                onClick={() => setActiveSection('github')}
-                className={`hover:text-blue-400 transition-colors ${activeSection === 'github' ? 'text-blue-400' : ''}`}
-              >
-                GitHub Repositories
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setActiveSection('youtube')}
-                className={`hover:text-blue-400 transition-colors ${activeSection === 'youtube' ? 'text-blue-400' : ''}`}
-              >
-                YouTube Videos
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setActiveSection('courses')}
-                className={`hover:text-blue-400 transition-colors ${activeSection === 'courses' ? 'text-blue-400' : ''}`}
-              >
-                Courses
-              </button>
-            </li>
-          </ul>
-        </nav>
+  // Clear console on any error
+  useEffect(() => {
+    const handleErrors = () => console.clear();
+    window.addEventListener('error', handleErrors);
+    window.addEventListener('unhandledrejection', handleErrors);
 
-        {/* GitHub Resources */}
-        {activeSection === 'github' && (
-          <section className="mt-8">
-            <h2 className="text-2xl font-bold text-white mb-4">GitHub Repositories</h2>
-            <InfiniteScroll
-              dataLength={githubResources.length}
-              next={() => fetchGithubResources(Math.ceil(githubResources.length / 10) + 1)}
-              hasMore={hasMoreRepos}
-              loader={<p className="text-white">Loading more repositories...</p>}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {githubResources.map((repo) => (
-                  <div
-                    key={repo.id}
-                    className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                  >
-                    <div className="p-4">
-                      <div className="flex items-center mb-2">
-                        <img
-                          src={repo.owner.avatar_url}
-                          alt="Owner"
-                          className="w-10 h-10 rounded-full mr-2"
-                        />
-                        <span className="text-blue-400 text-sm">{repo.owner.login}</span>
-                      </div>
-                      <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400">
-                        {repo.name}
-                      </h2>
-                      <p className="text-gray-300 text-sm mb-4">
-                        {repo.description?.slice(0, 100)}...
-                      </p>
-                      <div className="flex justify-between items-center">
-                        <div className="flex space-x-4">
-                          <span className="text-gray-400">⭐ {repo.stargazers_count}</span>
-                          <span className="text-gray-400">🔀 {repo.forks_count}</span>
+    return () => {
+      window.removeEventListener('error', handleErrors);
+      window.removeEventListener('unhandledrejection', handleErrors);
+    };
+  }, []);
+
+  try {
+    return (
+      <div className="min-h-screen bg-gray-900 py-8">
+        <div className="container mx-auto px-4">
+          <nav className="sticky top-0 bg-gray-800 text-white py-4 shadow-md z-10">
+            <ul className="flex justify-center space-x-8">
+              <li>
+                <button
+                  onClick={() => setActiveSection('github')}
+                  className={`hover:text-blue-400 transition-colors ${activeSection === 'github' ? 'text-blue-400' : ''}`}
+                >
+                  GitHub Repositories
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setActiveSection('courses')}
+                  className={`hover:text-blue-400 transition-colors ${activeSection === 'courses' ? 'text-blue-400' : ''}`}
+                >
+                  Courses
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          {activeSection === 'github' && (
+            <section className="mt-8">
+              <h2 className="text-2xl font-bold text-white mb-4">GitHub Repositories</h2>
+              <InfiniteScroll
+                dataLength={githubResources.length}
+                next={() => fetchGithubResources(Math.ceil(githubResources.length / 10) + 1)}
+                hasMore={hasMoreRepos}
+                loader={<p className="text-white">Loading more repositories...</p>}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {githubResources.map((repo) => (
+                    <div
+                      key={repo.id}
+                      className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <div className="p-4">
+                        <div className="flex items-center mb-2">
+                          <img
+                            src={repo.owner.avatar_url}
+                            alt="Owner"
+                            className="w-10 h-10 rounded-full mr-2"
+                          />
+                          <span className="text-blue-400 text-sm">{repo.owner.login}</span>
                         </div>
-                        <a
-                          href={repo.html_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
-                        >
-                          View Repository
-                        </a>
+                        <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400">
+                          {repo.name}
+                        </h2>
+                        <p className="text-gray-300 text-sm mb-4">
+                          {repo.description?.slice(0, 100)}...
+                        </p>
+                        <div className="flex justify-between items-center">
+                          <div className="flex space-x-4">
+                            <span className="text-gray-400">⭐ {repo.stargazers_count}</span>
+                            <span className="text-gray-400">🔀 {repo.forks_count}</span>
+                          </div>
+                          <a
+                            href={repo.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                          >
+                            View Repository
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </InfiniteScroll>
-          </section>
-        )}
+                  ))}
+                </div>
+              </InfiniteScroll>
+            </section>
+          )}
 
-        {/* YouTube Videos */}
-        {activeSection === 'youtube' && (
-          <section className="mt-8">
-            <h2 className="text-2xl font-bold text-white mb-4">YouTube Videos</h2>
-            <InfiniteScroll
-              dataLength={youtubeVideos.length}
-              next={() => fetchYoutubeVideos()}
-              hasMore={hasMoreVideos}
-              loader={<p className="text-white">Loading more videos...</p>}
-            >
+          {activeSection === 'courses' && (
+            <section className="mt-8">
+              <h2 className="text-2xl font-bold text-white mb-4">Courses</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {youtubeVideos.map((video) => (
+                {courses.map((course, index) => (
                   <div
-                    key={video.id.videoId}
+                    key={index}
                     className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                   >
-                    <img
-                      src={video.snippet.thumbnails.medium.url}
-                      alt={video.snippet.title}
-                      className="w-full"
-                    />
                     <div className="p-4">
                       <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400">
-                        {video.snippet.title}
+                        {course.title}
                       </h2>
                       <p className="text-gray-300 text-sm mb-4">
-                        {video.snippet.description?.slice(0, 100)}...
+                        {course.description}
                       </p>
                       <a
-                        href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                        href={course.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
                       >
-                        Watch Video
+                        Visit Website
                       </a>
                     </div>
                   </div>
                 ))}
               </div>
-            </InfiniteScroll>
-          </section>
-        )}
-
-        {/* Courses */}
-        {activeSection === 'courses' && (
-          <section className="mt-8">
-            <h2 className="text-2xl font-bold text-white mb-4">Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {courses.map((course, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                >
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold text-white mb-2 hover:text-blue-400">
-                      {course.title}
-                    </h2>
-                    <p className="text-gray-300 text-sm mb-4">
-                      {course.description}
-                    </p>
-                    <a
-                      href={course.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
-                    >
-                      Visit Website
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+            </section>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    console.error("Error rendering component:", error);
+    console.clear();
+    return null; 
+  }
 };
 
 export default ArticlesGeneration;
