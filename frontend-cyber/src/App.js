@@ -9,6 +9,7 @@ import Quiz3 from "./Components/Quizzes/Quiz3";
 import About from "./Components/About/About";
 import Contact from "./Components/Contact/Contact";
 import CourseGenerator from "./Components/CourseGeneration/CourseGeneration";
+// import CourseAndArticleCards from "./Components/CourseCards/CourseCards";
 
 function App() {
   return (

@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Footer from "../Footer/Footer";
+import afreen from '../Assests/Photos/Afreen.jpg';
+import chi from '../Assests/Photos/Chidinma.jpg';
+import jfz from '../Assests/Photos/jzf.jpg';
+import pixy from '../Assests/Photos/pixypie.jpg';
+
 
 export default function About() {
   const [activeFAQ, setActiveFAQ] = useState(null);
@@ -84,27 +89,48 @@ export default function About() {
 
       
       <section className="relative py-24" data-aos="fade-up">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Meet Our Team
-        </h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {Array(3)
-            .fill(null)
-            .map((_, index) => (
-              <div className="text-center" key={index}>
-                <img
-                  src="https://www.tenforums.com/attachments/user-accounts-family-safety/322690d1615743307t-user-account-image-log-user.png"
-                  alt="Team Member"
-                  className="rounded-full w-32 mx-auto mb-4"
-                />
-                <h3 className="text-lg font-semibold text-cyan-400">
-                  Member {index + 1}
-                </h3>
-                <p>Role {index + 1}</p>
-              </div>
-            ))}
-        </div>
-      </section>
+  <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+    Meet Our Team
+  </h2>
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    {[
+      {
+        name: "Afreen",
+        role: "UI/UX Designer",
+        photo: afreen,
+      },
+      {
+        name: "Chidinma",
+        role: "Backend Manager",
+        photo: chi,
+      },
+      {
+        name: "Pixypie",
+        role: "UI/UX Designer",
+        photo: pixy,
+      },
+      {
+        name: "Jzf",
+        role: "Backend Manager",
+        photo: jfz,
+      },
+    ].map((member, index) => (
+      <div className="text-center" key={index}>
+        <img
+          src={member.photo}
+          alt={member.name}
+          className="rounded-full w-32 mx-auto mb-4"
+        />
+        <h3 className="text-lg font-semibold text-cyan-400">
+          {member.name}
+        </h3>
+        <p>{member.role}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+
 
       
       <section className="relative py-24" data-aos="fade-up">
