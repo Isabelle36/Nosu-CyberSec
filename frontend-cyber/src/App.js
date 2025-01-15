@@ -9,6 +9,7 @@ import Quiz3 from "./Components/Quizzes/Quiz3";
 import About from "./Components/About/About";
 import Contact from "./Components/Contact/Contact";
 import CourseGenerator from "./Components/CourseGeneration/CourseGeneration";
+import DynamicQuiz from "./Components/Quizzes/QuizGenerator";
 // import CourseAndArticleCards from "./Components/CourseCards/CourseCards";
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/course" element={<CourseGenerator/>} />
+          <Route path="/quizgenerator" element={<DynamicQuiz/>} />
+
         </Routes>
       </Router>
     </>
