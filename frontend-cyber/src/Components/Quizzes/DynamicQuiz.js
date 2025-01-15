@@ -1,5 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import cat from "../../assets/cat.gif";
+import song from "../../assets/oeea.mp3";
+const TimerProgressBar = ({ duration, onTimeUp }) => {
+  const [progress, setProgress] = useState(100);
 
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+      setProgress(remaining);
+
+      if (remaining === 0) {
+        clearInterval(interval);
+        onTimeUp();
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [duration, onTimeUp]);
+
+  return (
+    <div className="w-full bg-gray-700 rounded-full h-2.5 mb-4">
+      <div
+        className="h-full bg-cyan-500 rounded-full transition-all duration-100"
+        style={{ width: `${progress}%` }}
+      />
+    </div>
+  );
+};
 
 const DynamicQuiz = () => {
   const [prompt, setPrompt] = useState("");
@@ -13,6 +42,22 @@ const DynamicQuiz = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackType, setFeedbackType] = useState("success");
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const QUESTION_DURATION = 10000; // 10 seconds per question
+
+
+    
+  const handleTimeUp = () => {
+    if (!selectedAnswer) {
+      setFeedbackMessage("Time's up!");
+      setFeedbackType("error");
+      setShowFeedback(true);
+
+      setTimeout(() => {
+        setShowFeedback(false);
+        handleNextQuestion();
+      }, 1000);
+    }
+  };
 
   const handleGenerateQuiz = async (e) => {
     e.preventDefault();
@@ -65,18 +110,21 @@ const DynamicQuiz = () => {
 
     setTimeout(() => {
       setShowFeedback(false);
-
-      if (currentQuestionIndex < quizData.questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedAnswer("");
-      } else {
-        setQuizCompleted(true);
-      }
+      handleNextQuestion();
     }, 1000);
   };
 
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < quizData.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedAnswer("");
+    } else {
+      setQuizCompleted(true);
+    }
+  };
+
   return (
-    <div className="quiz-container bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] min-h-screen flex flex-col items-center justify-center text-white p-6">
+    <div className=" bg-gradient-to-br from-[#0d1b2a] via-[#1b263b] to-[#415a77] min-h-screen flex flex-col items-center justify-center text-white p-6">
       <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-cyan-400 to-blue-600 blur-3xl opacity-30 rounded-full"></div>
 
       {!quizData && !quizCompleted && (
@@ -84,6 +132,7 @@ const DynamicQuiz = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             Generate Your Quiz
           </h2>
+          
           <form onSubmit={handleGenerateQuiz} className="space-y-4">
             <input
               type="text"
@@ -106,7 +155,6 @@ const DynamicQuiz = () => {
 
       {error && (
         <div className="relative z-10 w-full max-w-xl bg-red-500 text-white p-4 rounded-lg flex items-center mt-4">
-          
           Error generating quiz: {error}
         </div>
       )}
@@ -119,8 +167,17 @@ const DynamicQuiz = () => {
               {quizData.description}
             </p>
           </div>
+          <img
+            src={cat}
+            alt="cat"
+            className="absolute bottom-0 right-0 w-40 h-40"
+          />
 
           <div className="relative z-10 mt-8 w-full max-w-2xl bg-[#1b263b] p-6 rounded-lg shadow-lg">
+            <TimerProgressBar
+              duration={QUESTION_DURATION}
+              onTimeUp={handleTimeUp}
+            />
             <p className="text-xl md:text-2xl font-semibold">
               {quizData.questions[currentQuestionIndex].question}
             </p>
