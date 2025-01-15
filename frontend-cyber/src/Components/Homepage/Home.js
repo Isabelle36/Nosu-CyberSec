@@ -1,15 +1,15 @@
 import {React,useEffect} from 'react'
 import './Home.css'
-import 'aos/dist/aos.css'; // Import AOS styles
-import AOS from 'aos'; // Import AOS library
+import 'aos/dist/aos.css'; 
+import AOS from 'aos'; 
 import QuizInHome from '../QuizInHome/QuizInHome'
 import Footer from '../Footer/Footer';
 
 export default function Home() {
   useEffect(() => {
     AOS.init({
-      duration: 700, // Adjust the duration of the animation
-      once: true, // Trigger animation only once when scrolling
+      duration: 700, 
+      once: true, 
     });
   }, []);
   

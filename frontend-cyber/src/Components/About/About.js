@@ -50,7 +50,7 @@ export default function About() {
         </p>
       </section>
 
-      {/* Why Choose Us Section */}
+      
       <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Why Choose Us?
@@ -82,7 +82,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team Showcase Section */}
+      
       <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Meet Our Team
@@ -106,7 +106,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      
       <section className="relative py-24" data-aos="fade-up">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Frequently Asked Questions
@@ -134,7 +134,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Call-to-Action */}
+      
       <section className="relative py-24" data-aos="fade-up">
         <div className="text-center text-white">
           <h2 className="text-4xl font-bold mb-6">Ready to Join Us?</h2>
@@ -150,7 +150,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Footer */}
+      
       <Footer/>
     </div>
   );
