@@ -51,7 +51,9 @@ const CourseAndArticleCards = forwardRef((props, ref) => {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-sm p-8 [transform:rotateY(180deg)] [backface-visibility:hidden] border border-blue-500/20">
               <h3 className="text-2xl font-bold mb-4">Dive Deeper</h3>
               <p className="text-lg mb-6">Explore our collection of expert articles and analysis.</p>
-              <button className="bg-white/90 text-blue-700 px-6 py-2 rounded-full font-semibold hover:bg-white transition-colors">
+              <button 
+               onClick={() => navigate('/articles')}
+              className="bg-white/90 text-blue-700 px-6 py-2 rounded-full font-semibold hover:bg-white transition-colors">
                 Read Articles
               </button>
             </div>
