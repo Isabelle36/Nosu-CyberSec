@@ -1,15 +1,17 @@
 ## Setup Instructions  
 
-### 1. Clone the Repository:  
-```bash  
-git clone https://github.com/your-username/your-repo.git  
-cd Nosu-Cybersec
-then 
+### 1. Clone the Repository  
+```bash
+git clone https://github.com/your-username/your-repo.git
+```
+cd Nosu-Cybersec <br>
+then <br>
 cd frontend-cyber
 
 ### 2. Install Dependencies:
 ```bash
 npm install  
+```
 
 ### 3. Configure Environment Variables:
 
@@ -27,3 +29,4 @@ EMAILJS_USER_ID, EMAILJS_TEMPLATE_ID, EMAILJS_SERVICE_ID: Your EmailJS credentia
 
 ```bash
 npm start
+```
