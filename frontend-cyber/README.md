@@ -3,7 +3,9 @@
 ### 1. Clone the Repository:  
 ```bash  
 git clone https://github.com/your-username/your-repo.git  
-cd your-repo  
+cd Nosu-Cybersec
+then 
+cd frontend-cyber
 
 ### 2. Install Dependencies:
 ```bash
