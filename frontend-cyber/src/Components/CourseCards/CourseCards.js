@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CourseAndArticleCards = forwardRef((props, ref) => {
   const navigate = useNavigate();
