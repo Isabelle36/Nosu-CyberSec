@@ -2,7 +2,7 @@
 
 ### 1. Clone the Repository  
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/Isabelle36/Nosu-CyberSec.git
 ```
 cd Nosu-Cybersec <br>
 then <br>
