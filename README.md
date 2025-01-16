@@ -1,4 +1,4 @@
-## Setup Instructions  
+and this in read me ## Setup Instructions  
 
 ### 1. Clone the Repository  
 ```bash
@@ -10,7 +10,8 @@ cd frontend-cyber
 
 ### 2. Install Dependencies:
 ```bash
-npm install  
+npm install
+npm start  
 ```
 
 ### 3. Configure Environment Variables:
@@ -30,7 +31,6 @@ EMAILJS_USER_ID, EMAILJS_TEMPLATE_ID, EMAILJS_SERVICE_ID: Your EmailJS credentia
 ```bash
 npm start
 ```
-
 
 ### Backend Setup Instructions
 
