@@ -1,6 +1,5 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect} from "react";
 import cat from "../../assets/cat.gif";
-import song from "../../assets/oeea.mp3";
 const TimerProgressBar = ({ duration, onTimeUp }) => {
   const [progress, setProgress] = useState(100);
 
